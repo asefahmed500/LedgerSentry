@@ -44,6 +44,7 @@ export async function runComplianceAgent(documentId: string): Promise<Compliance
     const tools = buildComplianceTools(ctx)
     const result = await generateText({
       model: agentModel(),
+      maxRetries: 5,
       system: SYSTEM_PROMPT,
       prompt: `Review this purchase order for compliance:
 Document ID: ${doc.id}

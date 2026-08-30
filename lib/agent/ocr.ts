@@ -35,6 +35,7 @@ function isVisionUnsupportedError(error: unknown) {
 async function visionFromBuffer(buffer: Buffer): Promise<ExtractedInvoiceFields> {
   const { text } = await generateText({
     model: visionModel(),
+    maxRetries: 5,
     messages: [
       {
         role: "user",

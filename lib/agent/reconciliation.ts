@@ -40,6 +40,7 @@ export async function runReconciliationAgent(invoiceId: string): Promise<Reconci
     const tools = buildReconciliationTools(ctx)
     const result = await generateText({
       model: agentModel(),
+      maxRetries: 5,
       system: SYSTEM_PROMPT,
       prompt: `Reconcile this invoice:
 Invoice ID: ${invoice.id}

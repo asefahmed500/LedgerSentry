@@ -302,8 +302,18 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
                       Linked PO (optional)
                     </span>
                   </FieldLabel>
-                  <Select value={poId} onValueChange={(v) => setPoId(v ?? "none")}>
-                    <SelectTrigger id="inv-po">
+                  <Select
+                    items={[
+                      { value: "none", label: "No PO — not linked" },
+                      ...poOptions.map((p) => ({
+                        value: p.id,
+                        label: `${p.title} · ${p.vendor}`,
+                      })),
+                    ]}
+                    value={poId}
+                    onValueChange={(v) => setPoId(v ?? "none")}
+                  >
+                    <SelectTrigger id="inv-po" className="w-full">
                       <SelectValue placeholder="No PO" />
                     </SelectTrigger>
                     <SelectContent>

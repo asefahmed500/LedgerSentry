@@ -191,9 +191,14 @@ function RuleFormDialog({
             <Field>
               <FieldLabel htmlFor="rule-severity">Severity</FieldLabel>
               <Select
+                items={[
+                  { value: "critical", label: "Critical" },
+                  { value: "major", label: "Major" },
+                  { value: "minor", label: "Minor" },
+                ]}
                 value={form.severity}
                 onValueChange={(v) =>
-                  setForm({ ...form, severity: v as RuleInput["severity"] })
+                  setForm({ ...form, severity: (v ?? "major") as RuleInput["severity"] })
                 }
               >
                 <SelectTrigger id="rule-severity">
@@ -209,12 +214,13 @@ function RuleFormDialog({
           </div>
           <Field>
             <FieldLabel htmlFor="rule-category">Category</FieldLabel>
-            <Select
-              value={form.category}
-              onValueChange={(v) =>
-                setForm({ ...form, category: v ?? "payment_terms" })
-              }
-            >
+              <Select
+                items={CATEGORIES.map((c) => ({ value: c.value, label: c.label }))}
+                value={form.category}
+                onValueChange={(v) =>
+                  setForm({ ...form, category: v ?? "payment_terms" })
+                }
+              >
               <SelectTrigger id="rule-category">
                 <SelectValue />
               </SelectTrigger>
