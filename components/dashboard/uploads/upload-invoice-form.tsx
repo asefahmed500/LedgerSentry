@@ -147,7 +147,7 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
       form.set("issueDate", issueDate)
       form.set("dueDate", dueDate)
       if (invoiceNumber.trim()) form.set("invoiceNumber", invoiceNumber)
-      if (poId !== "none") form.set("poId", poId)
+      if (poExists && poId !== "none") form.set("poId", poId)
 
       const res = await fetch("/api/upload/invoice", { method: "POST", body: form })
       const body = (await res.json()) as {
@@ -170,6 +170,7 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
 
   const today = new Date()
   const in30 = new Date(today.getTime() + 30 * 86400000)
+  const poExists = poId === "none" || poOptions.some((p) => p.id === poId)
   const linkedPo = poOptions.find((p) => p.id === poId)
 
   return (
@@ -308,7 +309,7 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
                         label: `${p.title} · ${p.vendor}`,
                       })),
                     ]}
-                    value={poId}
+                    value={poExists ? poId : "none"}
                     onValueChange={(v) => setPoId(v ?? "none")}
                   >
                     <SelectTrigger id="inv-po" className="w-full">
