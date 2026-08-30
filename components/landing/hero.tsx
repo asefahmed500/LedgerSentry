@@ -63,7 +63,7 @@ async function getHeroData() {
           hasAgentRun: Boolean(matched),
         }
       : null,
-    tools: lastRun?.steps.map((s) => s.toolName).filter(Boolean).slice(0, 3) ?? [],
+    tools: [...new Set(lastRun?.steps.map((s) => s.toolName).filter(Boolean) ?? [])].slice(0, 3),
     violation: violation
       ? {
           document: violation.document.title,

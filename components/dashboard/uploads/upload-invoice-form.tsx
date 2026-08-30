@@ -129,8 +129,7 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
   function step1Error() {
     if (!vendor.trim()) return "Vendor is required."
     if (!(normalizedAmount() > 0)) return "Amount must be a positive number."
-    if (!issueDate || !dueDate) return "Both dates are required."
-    if (new Date(dueDate) < new Date(issueDate))
+    if (new Date(effectiveDueDate) < new Date(effectiveIssueDate))
       return "Due date cannot be before the issue date."
     return null
   }
@@ -144,8 +143,8 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
       form.set("file", file)
       form.set("vendor", vendor)
       form.set("amount", String(normalizedAmount()))
-      form.set("issueDate", issueDate)
-      form.set("dueDate", dueDate)
+      form.set("issueDate", effectiveIssueDate)
+      form.set("dueDate", effectiveDueDate)
       if (invoiceNumber.trim()) form.set("invoiceNumber", invoiceNumber)
       if (poExists && poId !== "none") form.set("poId", poId)
 
@@ -170,6 +169,8 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
 
   const today = new Date()
   const in30 = new Date(today.getTime() + 30 * 86400000)
+  const effectiveIssueDate = issueDate || toISODate(today)
+  const effectiveDueDate = dueDate || toISODate(in30)
   const poExists = poId === "none" || poOptions.some((p) => p.id === poId)
   const linkedPo = poOptions.find((p) => p.id === poId)
 
@@ -265,7 +266,7 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
                     id="inv-issue"
                     type="date"
                     required
-                    value={issueDate || toISODate(today)}
+                    value={effectiveIssueDate}
                     onChange={(e) =>
                       setIssueDate(e.target.value || toISODate(today))
                     }
@@ -277,7 +278,7 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
                     id="inv-due"
                     type="date"
                     required
-                    value={dueDate || toISODate(in30)}
+                    value={effectiveDueDate}
                     onChange={(e) =>
                       setDueDate(e.target.value || toISODate(in30))
                     }
@@ -351,7 +352,7 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
                 <div className="flex justify-between gap-4 sm:block">
                   <dt className="text-xs text-muted-foreground">Dates</dt>
                   <dd>
-                    {issueDate} → {dueDate}
+                    {effectiveIssueDate} → {effectiveDueDate}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-4 sm:block">
