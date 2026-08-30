@@ -122,19 +122,13 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
     return Boolean(file) && !reading
   }
 
-  function step1Valid() {
-    return (
-      vendor.trim().length > 0 &&
-      Number(amount) > 0 &&
-      Boolean(issueDate) &&
-      Boolean(dueDate) &&
-      new Date(dueDate) >= new Date(issueDate)
-    )
+  function normalizedAmount() {
+    return Number(String(amount).replace(/,/g, ""))
   }
 
   function step1Error() {
     if (!vendor.trim()) return "Vendor is required."
-    if (!(Number(amount) > 0)) return "Amount must be a positive number."
+    if (!(normalizedAmount() > 0)) return "Amount must be a positive number."
     if (!issueDate || !dueDate) return "Both dates are required."
     if (new Date(dueDate) < new Date(issueDate))
       return "Due date cannot be before the issue date."
@@ -149,7 +143,7 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
       const form = new FormData()
       form.set("file", file)
       form.set("vendor", vendor)
-      form.set("amount", amount)
+      form.set("amount", String(normalizedAmount()))
       form.set("issueDate", issueDate)
       form.set("dueDate", dueDate)
       if (invoiceNumber.trim()) form.set("invoiceNumber", invoiceNumber)
@@ -271,7 +265,9 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
                     type="date"
                     required
                     value={issueDate || toISODate(today)}
-                    onChange={(e) => setIssueDate(e.target.value)}
+                    onChange={(e) =>
+                      setIssueDate(e.target.value || toISODate(today))
+                    }
                   />
                 </Field>
                 <Field>
@@ -281,7 +277,9 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
                     type="date"
                     required
                     value={dueDate || toISODate(in30)}
-                    onChange={(e) => setDueDate(e.target.value)}
+                    onChange={(e) =>
+                      setDueDate(e.target.value || toISODate(in30))
+                    }
                   />
                 </Field>
               </div>
@@ -396,7 +394,7 @@ export function UploadInvoiceForm({ poOptions }: { poOptions: PoOption[] }) {
             {step < 2 ? (
               <Button
                 size="sm"
-                disabled={(step === 0 && !canLeaveStep0()) || (step === 1 && !step1Valid())}
+                disabled={step === 0 && !canLeaveStep0()}
                 onClick={() => {
                   if (step === 1) {
                     const problem = step1Error()
