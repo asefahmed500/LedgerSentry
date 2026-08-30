@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Invoice {
+  id             String          @id @default(cuid())
+  number         String          @unique
+  vendor         String
+  vendorClean    String
+  amount         Decimal         @db.Decimal(14, 2)
+  issueDate      DateTime
+  dueDate        DateTime
+  currency       String          @default("BDT")
+  isScanned      Boolean         @default(false)
+  imagePath      String?
+  ocrText        String?
+  expectedMatch  String          @default("")
+  batchKey       String?
+  poId           String?
+  po             PolicyDocument? @relation(fields: [poId], references: [id], onDelete: SetNull)
+  createdAt      DateTime        @default(now())
+  matchResults   MatchResult[]
+
+  @@index([vendorClean])
+  @@index([poId])
+}
+
+model Transaction {
+  id         String   @id @default(cuid())
+  reference  String   @unique
+  payer      String
+  amount     Decimal  @db.Decimal(14, 2)
+  date       DateTime
+  channel    String   @default("bank")
+  coversKey  String?
+  createdAt  DateTime @default(now())
+  matchResults MatchResult[]
+
+  @@index([payer])
+}
+
+model MatchResult {
+  id            String        @id @default(cuid())
+  invoiceId     String
+  invoice       Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction?  @relation(fields: [transactionId], references: [id])
+  status        String
+  matchType     String?
+  confidence    Int           @default(0)
+  explanation   String
+  engine        String
+  runId         String?
+  createdAt     DateTime      @default(now())
+
+  @@unique([invoiceId, engine])
+  @@index([engine, status])
+}
+
+model Rule {
+  id             String             @id @default(cuid())
+  code           String             @unique
+  category       String
+  description    String
+  keywords       String[]
+  severity       String             @default("major")
+  compliance     ComplianceResult[]
+}
+
+model PolicyDocument {
+  id                 String             @id @default(cuid())
+  title              String
+  vendor             String
+  text               String
+  pdfPath            String?
+  expectedViolations String[]
+  createdAt          DateTime           @default(now())
+  results            ComplianceResult[]
+  invoices           Invoice[]
+
+  @@index([vendor])
+}
+
+model ComplianceResult {
+  id            String         @id @default(cuid())
+  documentId    String
+  document      PolicyDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  ruleId        String
+  rule          Rule           @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+  status        String
+  citedClause   String?
+  rationale     String
+  confidence    Int            @default(0)
+  engine        String
+  runId         String?
+  createdAt     DateTime       @default(now())
+
+  @@unique([documentId, ruleId, engine])
+  @@index([engine, status])
+}
+
+model ReviewItem {
+  id        String    @id @default(cuid())
+  kind      String
+  refId     String
+  reason    String
+  status    String    @default("pending")
+  decidedBy String?
+  decidedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([status])
+}
+
+model AgentRun {
+  id         String      @id @default(cuid())
+  kind       String
+  model      String
+  inputRef   String
+  status     String      @default("running")
+  output     Json?
+  error      String?
+  startedAt  DateTime    @default(now())
+  finishedAt DateTime?
+  steps      AgentStep[]
+}
+
+model AgentStep {
+  id        String   @id @default(cuid())
+  runId     String
+  run       AgentRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  index     Int
+  type      String
+  toolName  String?
+  input     Json?
+  output    Json?
+  reasoning String?
+  createdAt DateTime @default(now())
+
+  @@index([runId])
+}
+
+model EvalResult {
+  id        String   @id @default(cuid())
+  engine    String
+  task      String
+  metrics   Json
+  createdAt DateTime @default(now())
+}

@@ -1,19 +1,27 @@
-import { Button } from "@/components/ui/button"
+import { AgentDemo } from "@/components/landing/agent-demo"
+import { CtaBanner } from "@/components/landing/cta"
+import { Features } from "@/components/landing/features"
+import { Footer } from "@/components/landing/footer"
+import { Hero } from "@/components/landing/hero"
+import { HowItWorks } from "@/components/landing/how-it-works"
+import { LandingNavbar } from "@/components/landing/navbar"
+import { MetricsStrip } from "@/components/landing/metrics-strip"
 
-export default function Page() {
+export const dynamic = "force-dynamic"
+
+export default function HomePage() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
+    <div className="flex min-h-svh flex-col bg-background text-foreground">
+      <LandingNavbar />
+      <main className="flex-1">
+        <Hero />
+        <AgentDemo />
+        <Features />
+        <HowItWorks />
+        <MetricsStrip />
+        <CtaBanner />
+      </main>
+      <Footer />
     </div>
   )
 }

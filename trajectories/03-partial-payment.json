@@ -1,0 +1,181 @@
+{
+  "description": "03-partial-payment",
+  "agent": "reconciliation",
+  "model": "glm-4.7-flash",
+  "status": "complete",
+  "inputRef": "cmteow2hx001yaofwh3v51nf7",
+  "startedAt": "2026-08-29T20:15:03.919Z",
+  "finishedAt": "2026-08-29T20:15:32.350Z",
+  "finalOutput": {
+    "status": "partial",
+    "invoiceId": "cmteow2hx001yaofwh3v51nf7",
+    "matchType": "partial-payment",
+    "amountPaid": 715390.63,
+    "confidence": 90,
+    "explanation": "Partial payment from Ahsania Handicrafts (TXN#0059) on 2026-07-30, exactly 1 day after the due date. Vendor name matches exactly; amount received is 715,390.63 BDT (43.89% of invoice).",
+    "invoiceNumber": "INV-2026-0059",
+    "percentReceived": 43.89,
+    "needsHumanReview": false,
+    "transactionReference": "TXN#0059"
+  },
+  "steps": [
+    {
+      "step": 0,
+      "type": "reasoning",
+      "tool": null,
+      "input": null,
+      "output": null,
+      "reasoning": "Investigating invoice INV-2026-0059 from Ahsania Handicrafts, amount 1629538.85 BDT, due 2026-07-29."
+    },
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "extract_document_fields",
+      "input": {
+        "invoiceId": "cmteow2hx001yaofwh3v51nf7"
+      },
+      "output": {
+        "amount": 1629538.85,
+        "source": "database",
+        "vendor": "Ahsania Handicrafts",
+        "dueDate": "2026-07-29",
+        "issueDate": "2026-07-09",
+        "confidence": 99,
+        "invoiceNumber": "INV-2026-0059"
+      },
+      "reasoning": null
+    },
+    {
+      "step": 2,
+      "type": "tool_call",
+      "tool": "lookup_transaction",
+      "input": {
+        "limit": 10,
+        "dateTo": "2026-08-05",
+        "dateFrom": "2026-07-22",
+        "amountNear": 1629538.85,
+        "amountTolerancePct": 25
+      },
+      "output": [
+        {
+          "id": "cmteow2iw003waofwxsemvixx",
+          "date": "2026-08-03",
+          "payer": "Karnaphuly Paper Mills",
+          "amount": 1621701.79,
+          "channel": "bank",
+          "reference": "TXN#0049"
+        },
+        {
+          "id": "cmteow2iw003raofw0gufe6bx",
+          "date": "2026-08-01",
+          "payer": "Rahaman & Sons",
+          "amount": 1872338.9,
+          "channel": "bank",
+          "reference": "TXN#0044"
+        },
+        {
+          "id": "cmteow2iw003saofw97zrytz8",
+          "date": "2026-08-01",
+          "payer": "Dhaka Textile Mills",
+          "amount": 1632339.55,
+          "channel": "bank",
+          "reference": "TXN#0045"
+        },
+        {
+          "id": "cmteow2iw002taofwa5ua3n8m",
+          "date": "2026-07-30",
+          "payer": "M/S Modhumoti Agro Ltd",
+          "amount": 1833679.39,
+          "channel": "bank",
+          "reference": "TXN#0010"
+        },
+        {
+          "id": "cmteow2iw003zaofw4fgx7o2w",
+          "date": "2026-07-27",
+          "payer": "Modhumoti Agro",
+          "amount": 1843649.88,
+          "channel": "bank",
+          "reference": "TXN#0052"
+        }
+      ],
+      "reasoning": null
+    },
+    {
+      "step": 3,
+      "type": "tool_call",
+      "tool": "lookup_transaction",
+      "input": {
+        "limit": 10,
+        "payerContains": "Ahsania"
+      },
+      "output": [
+        {
+          "id": "cmteow2iw0046aofwqiwz2ulb",
+          "date": "2026-07-30",
+          "payer": "Ahsania Handicrafts",
+          "amount": 715390.63,
+          "channel": "bank",
+          "reference": "TXN#0059"
+        },
+        {
+          "id": "cmteow2iw003oaofwmb6ci9mu",
+          "date": "2026-07-02",
+          "payer": "Ahsania Handicrafts",
+          "amount": 1323265.5,
+          "channel": "bkash",
+          "reference": "TXN#0041"
+        },
+        {
+          "id": "cmteow2iw0045aofwr2cdbreh",
+          "date": "2026-06-21",
+          "payer": "Ahsania Handicrafts",
+          "amount": 258884.52,
+          "channel": "bank",
+          "reference": "TXN#0058"
+        },
+        {
+          "id": "cmteow2iw003caofwg7f0sxj0",
+          "date": "2026-06-20",
+          "payer": "Ahsania Handicrafts",
+          "amount": 2160390.09,
+          "channel": "bank",
+          "reference": "TXN#0029"
+        },
+        {
+          "id": "cmteow2ix004haofw1m8hs6lv",
+          "date": "2026-06-20",
+          "payer": "M/S Ahsania Handicrafts",
+          "amount": 2934367.11,
+          "channel": "bank",
+          "reference": "TXN#0070"
+        },
+        {
+          "id": "cmteow2iw002saofwadf1xupw",
+          "date": "2026-06-15",
+          "payer": "Ahsania Handicrafts.",
+          "amount": 1915106.74,
+          "channel": "bank",
+          "reference": "TXN#0009"
+        }
+      ],
+      "reasoning": null
+    },
+    {
+      "step": 4,
+      "type": "final",
+      "tool": "submit_reconciliation_result",
+      "input": {
+        "status": "partial",
+        "matchType": "partial-payment",
+        "amountPaid": 715390.63,
+        "confidence": 90,
+        "explanation": "Partial payment from Ahsania Handicrafts (TXN#0059) on 2026-07-30, exactly 1 day after the due date. Vendor name matches exactly; amount received is 715,390.63 BDT (43.89% of invoice).",
+        "percentReceived": 43.89,
+        "needsHumanReview": false,
+        "transactionReference": "TXN#0059"
+      },
+      "output": null,
+      "reasoning": null
+    }
+  ]
+}

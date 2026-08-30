@@ -1,0 +1,304 @@
+{
+  "description": "05-compliance-ambiguous-human-review",
+  "agent": "compliance",
+  "model": "glm-4.7-flash",
+  "status": "complete",
+  "inputRef": "cmteow2o90058aofwtb8usmrn",
+  "startedAt": "2026-08-30T06:13:08.021Z",
+  "finishedAt": "2026-08-30T06:13:50.715Z",
+  "finalOutput": {
+    "title": "PO-2026-017",
+    "vendor": "Nabila Cosmetics",
+    "summary": "The document is largely compliant with the rulebook. Net 30 payment terms, 100% liability cap, 30-day termination notice, Bangladesh Bureau of Statistics index, 12-month warranty, Bangladesh law, 24-month confidentiality, and force majeure clause are all satisfied. However, three items require clarification: advance payment escrow (amount and safeguards not specified), payment method (not explicitly bank transfer), and acceptance testing timeframe (only \"promptly\" stated). These ambiguities route to human review.",
+    "outcomes": [
+      {
+        "status": "compliant",
+        "ruleCode": "R-01",
+        "rationale": "The document specifies Net 30 payment terms, meeting the requirement of no more than 30 days.",
+        "confidence": 95,
+        "citedClause": "Payment terms are Net 30 days from the date of a correct invoice."
+      },
+      {
+        "status": "ambiguous",
+        "ruleCode": "R-02",
+        "rationale": "Advance payment is mentioned but the amount and specific escrow safeguards are not defined; 'standard safeguards' is vague.",
+        "confidence": 55,
+        "citedClause": "An advance payment may be required for unusually large orders, subject to the standard safeguards the parties customarily apply."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-03",
+        "rationale": "The clause explicitly limits liability to at least 100% of contract value.",
+        "confidence": 95,
+        "citedClause": "The Seller's total liability under this Agreement shall not be limited to less than 100% of the contract value."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-04",
+        "rationale": "Liquidated damages for late delivery are clearly specified.",
+        "confidence": 95,
+        "citedClause": "Liquidated damages of 0.5% per week of delay shall apply to late delivery, up to a maximum of 5% of the PO value."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-05",
+        "rationale": "The document specifies a 30-day written notice period for termination.",
+        "confidence": 95,
+        "citedClause": "Either party may terminate this Agreement with thirty (30) days written notice to the other party."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-06",
+        "rationale": "The price adjustment clause references the Bangladesh Bureau of Statistics index.",
+        "confidence": 95,
+        "citedClause": "Price adjustment, where applicable, shall follow the published index of the Bangladesh Bureau of Statistics only."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-07",
+        "rationale": "The document specifies a 12-month warranty period.",
+        "confidence": 95,
+        "citedClause": "A warranty period of twelve (12) months applies from the date of acceptance of the goods."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-08",
+        "rationale": "The governing law clause specifies Bangladesh law.",
+        "confidence": 95,
+        "citedClause": "This Agreement shall be governed by the laws of Bangladesh."
+      },
+      {
+        "status": "ambiguous",
+        "ruleCode": "R-09",
+        "rationale": "The document does not specify bank transfer; 'suitable means' is vague.",
+        "confidence": 55,
+        "citedClause": "Payments shall be remitted to the Seller's designated account by suitable means agreed between the parties."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-10",
+        "rationale": "Confidentiality obligations are specified to survive for 24 months.",
+        "confidence": 95,
+        "citedClause": "Confidentiality obligations survive for twenty-four (24) months after termination of this Agreement."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-11",
+        "rationale": "The document includes a force majeure clause with performance excuse upon written notice.",
+        "confidence": 95,
+        "citedClause": "Force majeure events shall excuse performance while they persist, provided prompt written notice is given."
+      },
+      {
+        "status": "ambiguous",
+        "ruleCode": "R-12",
+        "rationale": "The document only specifies 'promptly' without a specific timeframe, unclear if within 15 days.",
+        "confidence": 55,
+        "citedClause": "The Buyer shall inspect and test the goods promptly following delivery."
+      }
+    ],
+    "documentId": "cmteow2o90058aofwtb8usmrn",
+    "needsHumanReview": true
+  },
+  "steps": [
+    {
+      "step": 0,
+      "type": "reasoning",
+      "tool": null,
+      "input": null,
+      "output": null,
+      "reasoning": "Reviewing PO-2026-017 from Nabila Cosmetics against the rulebook (1696 chars)."
+    },
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "lookup_rulebook",
+      "input": {},
+      "output": [
+        {
+          "code": "R-01",
+          "category": "payment_terms",
+          "severity": "critical",
+          "description": "Payment terms must not exceed 30 days."
+        },
+        {
+          "code": "R-02",
+          "category": "payment_terms",
+          "severity": "critical",
+          "description": "Advance payment above 20% requires an escrow arrangement."
+        },
+        {
+          "code": "R-03",
+          "category": "liability",
+          "severity": "critical",
+          "description": "Liability cap must be at least 100% of contract value."
+        },
+        {
+          "code": "R-04",
+          "category": "delivery",
+          "severity": "major",
+          "description": "Delivery SLA must include liquidated damages for delay."
+        },
+        {
+          "code": "R-05",
+          "category": "termination",
+          "severity": "major",
+          "description": "Termination notice period must be at least 30 days."
+        },
+        {
+          "code": "R-06",
+          "category": "pricing",
+          "severity": "minor",
+          "description": "Price adjustment clause must reference a published index."
+        },
+        {
+          "code": "R-07",
+          "category": "warranty",
+          "severity": "major",
+          "description": "Minimum warranty period of 12 months."
+        },
+        {
+          "code": "R-08",
+          "category": "legal",
+          "severity": "major",
+          "description": "Governing law must be Bangladesh."
+        },
+        {
+          "code": "R-09",
+          "category": "payment_terms",
+          "severity": "critical",
+          "description": "Payment must be via bank transfer to the registered account."
+        },
+        {
+          "code": "R-10",
+          "category": "legal",
+          "severity": "minor",
+          "description": "Confidentiality period minimum 24 months."
+        },
+        {
+          "code": "R-11",
+          "category": "legal",
+          "severity": "major",
+          "description": "A force majeure clause must be present."
+        },
+        {
+          "code": "R-12",
+          "category": "delivery",
+          "severity": "minor",
+          "description": "Acceptance testing within 15 days of delivery."
+        }
+      ],
+      "reasoning": null
+    },
+    {
+      "step": 2,
+      "type": "tool_call",
+      "tool": "flag_for_human_review",
+      "input": {
+        "reason": "Ambiguities requiring clarification: (1) Advance payment amount not specified; \"standard safeguards\" is vague regarding escrow requirement for payments above 20%; (2) Payment method not specified as bank transfer; \"suitable means\" is ambiguous; (3) Acceptance testing timeframe - \"promptly\" is vague and doesn't meet the 15-day requirement. These require human review to interpret the parties' intent.",
+        "item_ref": "PO-2026-017"
+      },
+      "output": {
+        "routed": true,
+        "reviewId": "cmtfeybqw00gzq0fw1qzhywt2"
+      },
+      "reasoning": null
+    },
+    {
+      "step": 3,
+      "type": "final",
+      "tool": "submit_compliance_review",
+      "input": {
+        "summary": "The document is largely compliant with the rulebook. Net 30 payment terms, 100% liability cap, 30-day termination notice, Bangladesh Bureau of Statistics index, 12-month warranty, Bangladesh law, 24-month confidentiality, and force majeure clause are all satisfied. However, three items require clarification: advance payment escrow (amount and safeguards not specified), payment method (not explicitly bank transfer), and acceptance testing timeframe (only \"promptly\" stated). These ambiguities route to human review.",
+        "outcomes": [
+          {
+            "status": "compliant",
+            "ruleCode": "R-01",
+            "rationale": "The document specifies Net 30 payment terms, meeting the requirement of no more than 30 days.",
+            "confidence": 95,
+            "citedClause": "Payment terms are Net 30 days from the date of a correct invoice."
+          },
+          {
+            "status": "ambiguous",
+            "ruleCode": "R-02",
+            "rationale": "Advance payment is mentioned but the amount and specific escrow safeguards are not defined; 'standard safeguards' is vague.",
+            "confidence": 55,
+            "citedClause": "An advance payment may be required for unusually large orders, subject to the standard safeguards the parties customarily apply."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-03",
+            "rationale": "The clause explicitly limits liability to at least 100% of contract value.",
+            "confidence": 95,
+            "citedClause": "The Seller's total liability under this Agreement shall not be limited to less than 100% of the contract value."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-04",
+            "rationale": "Liquidated damages for late delivery are clearly specified.",
+            "confidence": 95,
+            "citedClause": "Liquidated damages of 0.5% per week of delay shall apply to late delivery, up to a maximum of 5% of the PO value."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-05",
+            "rationale": "The document specifies a 30-day written notice period for termination.",
+            "confidence": 95,
+            "citedClause": "Either party may terminate this Agreement with thirty (30) days written notice to the other party."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-06",
+            "rationale": "The price adjustment clause references the Bangladesh Bureau of Statistics index.",
+            "confidence": 95,
+            "citedClause": "Price adjustment, where applicable, shall follow the published index of the Bangladesh Bureau of Statistics only."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-07",
+            "rationale": "The document specifies a 12-month warranty period.",
+            "confidence": 95,
+            "citedClause": "A warranty period of twelve (12) months applies from the date of acceptance of the goods."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-08",
+            "rationale": "The governing law clause specifies Bangladesh law.",
+            "confidence": 95,
+            "citedClause": "This Agreement shall be governed by the laws of Bangladesh."
+          },
+          {
+            "status": "ambiguous",
+            "ruleCode": "R-09",
+            "rationale": "The document does not specify bank transfer; 'suitable means' is vague.",
+            "confidence": 55,
+            "citedClause": "Payments shall be remitted to the Seller's designated account by suitable means agreed between the parties."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-10",
+            "rationale": "Confidentiality obligations are specified to survive for 24 months.",
+            "confidence": 95,
+            "citedClause": "Confidentiality obligations survive for twenty-four (24) months after termination of this Agreement."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-11",
+            "rationale": "The document includes a force majeure clause with performance excuse upon written notice.",
+            "confidence": 95,
+            "citedClause": "Force majeure events shall excuse performance while they persist, provided prompt written notice is given."
+          },
+          {
+            "status": "ambiguous",
+            "ruleCode": "R-12",
+            "rationale": "The document only specifies 'promptly' without a specific timeframe, unclear if within 15 days.",
+            "confidence": 55,
+            "citedClause": "The Buyer shall inspect and test the goods promptly following delivery."
+          }
+        ],
+        "needsHumanReview": true
+      },
+      "output": null,
+      "reasoning": null
+    }
+  ]
+}

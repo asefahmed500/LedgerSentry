@@ -1,0 +1,88 @@
+{
+  "description": "01-clean-exact-match",
+  "agent": "reconciliation",
+  "model": "glm-4.7-flash",
+  "status": "complete",
+  "inputRef": "cmteow2hv000iaofwvnk6y0e6",
+  "startedAt": "2026-08-29T19:50:31.619Z",
+  "finishedAt": "2026-08-29T19:50:53.475Z",
+  "finalOutput": {
+    "status": "matched",
+    "invoiceId": "cmteow2hv000iaofwvnk6y0e6",
+    "matchType": "exact",
+    "amountPaid": 1912356.21,
+    "confidence": 100,
+    "explanation": "The payment TXN#0007 from M/S Surma Chemicals (bkash) for BDT 1,912,356.21 on 2026-06-28 matches the invoice exactly: same vendor name, identical amount, and date within the due date window (2026-06-27 ± 7 days).",
+    "invoiceNumber": "INV-2026-0007",
+    "percentReceived": 100,
+    "needsHumanReview": false,
+    "transactionReference": "TXN#0007"
+  },
+  "steps": [
+    {
+      "step": 0,
+      "type": "reasoning",
+      "tool": null,
+      "input": null,
+      "output": null,
+      "reasoning": "Investigating invoice INV-2026-0007 from Surma Chemicals, amount 1912356.21 BDT, due 2026-06-27."
+    },
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "extract_document_fields",
+      "input": {
+        "invoiceId": "cmteow2hv000iaofwvnk6y0e6"
+      },
+      "output": {
+        "amount": 1912356.21,
+        "source": "database",
+        "vendor": "Surma Chemicals",
+        "dueDate": "2026-06-27",
+        "issueDate": "2026-06-05",
+        "confidence": 99,
+        "invoiceNumber": "INV-2026-0007"
+      },
+      "reasoning": null
+    },
+    {
+      "step": 2,
+      "type": "tool_call",
+      "tool": "lookup_transaction",
+      "input": {
+        "limit": 10,
+        "dateTo": "2026-07-04",
+        "dateFrom": "2026-06-20",
+        "payerContains": "Surma Chemicals"
+      },
+      "output": [
+        {
+          "id": "cmteow2iw002qaofw597bxy64",
+          "date": "2026-06-28",
+          "payer": "M/S Surma Chemicals.",
+          "amount": 1912356.21,
+          "channel": "bkash",
+          "reference": "TXN#0007"
+        }
+      ],
+      "reasoning": null
+    },
+    {
+      "step": 3,
+      "type": "final",
+      "tool": "submit_reconciliation_result",
+      "input": {
+        "status": "matched",
+        "matchType": "exact",
+        "amountPaid": 1912356.21,
+        "confidence": 100,
+        "explanation": "The payment TXN#0007 from M/S Surma Chemicals (bkash) for BDT 1,912,356.21 on 2026-06-28 matches the invoice exactly: same vendor name, identical amount, and date within the due date window (2026-06-27 ± 7 days).",
+        "percentReceived": 100,
+        "needsHumanReview": false,
+        "transactionReference": "TXN#0007"
+      },
+      "output": null,
+      "reasoning": null
+    }
+  ]
+}

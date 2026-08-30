@@ -1,0 +1,290 @@
+{
+  "description": "04-compliance-violation-cited",
+  "agent": "compliance",
+  "model": "GLM-4.7-Flash",
+  "status": "complete",
+  "inputRef": "cmteow2m7004waofwr58yxnfk",
+  "startedAt": "2026-08-29T18:38:46.584Z",
+  "finishedAt": "2026-08-29T18:40:54.355Z",
+  "finalOutput": {
+    "title": "PO-2026-005",
+    "vendor": "Meghna Food Products",
+    "summary": "This purchase order is largely compliant with 11 of 12 rules. All critical payment, liability, and legal requirements are met, including Net 30 payment terms, 20% advance payment cap with escrow requirement, unlimited liability, Bangladesh governing law, and 12-month warranty. The only violation is the absence of a force majeure clause, which is a major requirement.",
+    "outcomes": [
+      {
+        "status": "compliant",
+        "ruleCode": "R-01",
+        "rationale": "Net 30 payment terms exactly match the 30-day maximum requirement.",
+        "confidence": 99,
+        "citedClause": "Payment terms are Net 30 days from the date of a correct invoice."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-02",
+        "rationale": "Advance payment cap is 20% and requires escrow approval, matching the rule.",
+        "confidence": 99,
+        "citedClause": "No advance payment above 20% of the PO value shall be made except through escrow arrangements approved by both parties."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-03",
+        "rationale": "Liability is not limited to less than 100% of contract value, satisfying the minimum requirement.",
+        "confidence": 99,
+        "citedClause": "The Seller's total liability under this Agreement shall not be limited to less than 100% of the contract value."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-04",
+        "rationale": "Liquidated damages clause is present and clearly specifies a delay penalty.",
+        "confidence": 99,
+        "citedClause": "Liquidated damages of 0.5% per week of delay shall apply to late delivery, up to a maximum of 5% of the PO value."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-05",
+        "rationale": "30-day written notice period exactly meets the minimum requirement.",
+        "confidence": 99,
+        "citedClause": "Either party may terminate this Agreement with thirty (30) days written notice to the other party."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-06",
+        "rationale": "Price adjustment references the Bangladesh Bureau of Statistics index as required.",
+        "confidence": 99,
+        "citedClause": "Price adjustment, where applicable, shall follow the published index of the Bangladesh Bureau of Statistics only."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-07",
+        "rationale": "12-month warranty period meets the minimum requirement.",
+        "confidence": 99,
+        "citedClause": "A warranty period of twelve (12) months applies from the date of acceptance of the goods."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-08",
+        "rationale": "Governing law is specified as Bangladesh, matching the rule.",
+        "confidence": 99,
+        "citedClause": "This Agreement shall be governed by the laws of Bangladesh."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-09",
+        "rationale": "Payment method is specified as bank transfer to the registered account.",
+        "confidence": 99,
+        "citedClause": "All payments shall be made via bank transfer to the Seller's registered account only."
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-10",
+        "rationale": "24-month confidentiality period meets the minimum requirement.",
+        "confidence": 99,
+        "citedClause": "Confidentiality obligations survive for twenty-four (24) months after termination of this Agreement."
+      },
+      {
+        "status": "violation",
+        "ruleCode": "R-11",
+        "rationale": "Force majeure clause is missing from the document.",
+        "confidence": 99,
+        "citedClause": null
+      },
+      {
+        "status": "compliant",
+        "ruleCode": "R-12",
+        "rationale": "15-day acceptance testing requirement is clearly specified.",
+        "confidence": 99,
+        "citedClause": "Acceptance testing shall be completed within fifteen (15) days of delivery at the Buyer's site."
+      }
+    ],
+    "documentId": "cmteow2m7004waofwr58yxnfk",
+    "needsHumanReview": false
+  },
+  "steps": [
+    {
+      "step": 0,
+      "type": "reasoning",
+      "tool": null,
+      "input": null,
+      "output": null,
+      "reasoning": "Reviewing PO-2026-005 from Meghna Food Products against the rulebook (1570 chars)."
+    },
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "lookup_rulebook",
+      "input": {},
+      "output": [
+        {
+          "code": "R-01",
+          "category": "payment_terms",
+          "severity": "critical",
+          "description": "Payment terms must not exceed 30 days."
+        },
+        {
+          "code": "R-02",
+          "category": "payment_terms",
+          "severity": "critical",
+          "description": "Advance payment above 20% requires an escrow arrangement."
+        },
+        {
+          "code": "R-03",
+          "category": "liability",
+          "severity": "critical",
+          "description": "Liability cap must be at least 100% of contract value."
+        },
+        {
+          "code": "R-04",
+          "category": "delivery",
+          "severity": "major",
+          "description": "Delivery SLA must include liquidated damages for delay."
+        },
+        {
+          "code": "R-05",
+          "category": "termination",
+          "severity": "major",
+          "description": "Termination notice period must be at least 30 days."
+        },
+        {
+          "code": "R-06",
+          "category": "pricing",
+          "severity": "minor",
+          "description": "Price adjustment clause must reference a published index."
+        },
+        {
+          "code": "R-07",
+          "category": "warranty",
+          "severity": "major",
+          "description": "Minimum warranty period of 12 months."
+        },
+        {
+          "code": "R-08",
+          "category": "legal",
+          "severity": "major",
+          "description": "Governing law must be Bangladesh."
+        },
+        {
+          "code": "R-09",
+          "category": "payment_terms",
+          "severity": "critical",
+          "description": "Payment must be via bank transfer to the registered account."
+        },
+        {
+          "code": "R-10",
+          "category": "legal",
+          "severity": "minor",
+          "description": "Confidentiality period minimum 24 months."
+        },
+        {
+          "code": "R-11",
+          "category": "legal",
+          "severity": "major",
+          "description": "A force majeure clause must be present."
+        },
+        {
+          "code": "R-12",
+          "category": "delivery",
+          "severity": "minor",
+          "description": "Acceptance testing within 15 days of delivery."
+        }
+      ],
+      "reasoning": null
+    },
+    {
+      "step": 2,
+      "type": "final",
+      "tool": "submit_compliance_review",
+      "input": {
+        "summary": "This purchase order is largely compliant with 11 of 12 rules. All critical payment, liability, and legal requirements are met, including Net 30 payment terms, 20% advance payment cap with escrow requirement, unlimited liability, Bangladesh governing law, and 12-month warranty. The only violation is the absence of a force majeure clause, which is a major requirement.",
+        "outcomes": [
+          {
+            "status": "compliant",
+            "ruleCode": "R-01",
+            "rationale": "Net 30 payment terms exactly match the 30-day maximum requirement.",
+            "confidence": 99,
+            "citedClause": "Payment terms are Net 30 days from the date of a correct invoice."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-02",
+            "rationale": "Advance payment cap is 20% and requires escrow approval, matching the rule.",
+            "confidence": 99,
+            "citedClause": "No advance payment above 20% of the PO value shall be made except through escrow arrangements approved by both parties."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-03",
+            "rationale": "Liability is not limited to less than 100% of contract value, satisfying the minimum requirement.",
+            "confidence": 99,
+            "citedClause": "The Seller's total liability under this Agreement shall not be limited to less than 100% of the contract value."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-04",
+            "rationale": "Liquidated damages clause is present and clearly specifies a delay penalty.",
+            "confidence": 99,
+            "citedClause": "Liquidated damages of 0.5% per week of delay shall apply to late delivery, up to a maximum of 5% of the PO value."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-05",
+            "rationale": "30-day written notice period exactly meets the minimum requirement.",
+            "confidence": 99,
+            "citedClause": "Either party may terminate this Agreement with thirty (30) days written notice to the other party."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-06",
+            "rationale": "Price adjustment references the Bangladesh Bureau of Statistics index as required.",
+            "confidence": 99,
+            "citedClause": "Price adjustment, where applicable, shall follow the published index of the Bangladesh Bureau of Statistics only."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-07",
+            "rationale": "12-month warranty period meets the minimum requirement.",
+            "confidence": 99,
+            "citedClause": "A warranty period of twelve (12) months applies from the date of acceptance of the goods."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-08",
+            "rationale": "Governing law is specified as Bangladesh, matching the rule.",
+            "confidence": 99,
+            "citedClause": "This Agreement shall be governed by the laws of Bangladesh."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-09",
+            "rationale": "Payment method is specified as bank transfer to the registered account.",
+            "confidence": 99,
+            "citedClause": "All payments shall be made via bank transfer to the Seller's registered account only."
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-10",
+            "rationale": "24-month confidentiality period meets the minimum requirement.",
+            "confidence": 99,
+            "citedClause": "Confidentiality obligations survive for twenty-four (24) months after termination of this Agreement."
+          },
+          {
+            "status": "violation",
+            "ruleCode": "R-11",
+            "rationale": "Force majeure clause is missing from the document.",
+            "confidence": 99,
+            "citedClause": null
+          },
+          {
+            "status": "compliant",
+            "ruleCode": "R-12",
+            "rationale": "15-day acceptance testing requirement is clearly specified.",
+            "confidence": 99,
+            "citedClause": "Acceptance testing shall be completed within fifteen (15) days of delivery at the Buyer's site."
+          }
+        ],
+        "needsHumanReview": false
+      },
+      "output": null,
+      "reasoning": null
+    }
+  ]
+}

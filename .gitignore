@@ -34,3 +34,14 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# prisma generated client
+/generated
+
+# tesseract language data cache
+/.tesseract
+
+# runtime-generated assets (seed regenerates these)
+/public/uploads
+/public/scans
+/public/policy

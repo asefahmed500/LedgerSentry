@@ -1,0 +1,25 @@
+Finance teams at small businesses check the same two things every month: did the payments we received match the invoices we sent, and do vendor contracts actually follow our procurement policy.
+
+Rule-based systems handle the clean eighty percent and then go quiet. The messy twenty percent — partial payments, misspelled vendor names, scanned invoices, clauses buried in prose — is where a human squints at two PDFs side by side, and where money quietly leaks.
+
+This is LedgerSentry. One agent, two jobs: reconcile payments against invoices, and check every contract clause against the rulebook — with a confidence score and full evidence on every decision.
+
+Everything runs against a real Postgres ledger, inside a JWT-protected reviewer workspace.
+
+Here is the baseline versus the agent. Invoice 0071 from Dhaka Textiles Mills: the strict baseline matcher says unmatched. The agent says matched, ninety-five percent confidence — and when we open the details, it explains exactly why: transaction 0032, exact amount, date within window, vendor resolved.
+
+Uploading a real scanned invoice takes three steps. Pick the scan — OCR reads it automatically. Review the fields it extracted — these come from tesseract, and the ledger record stays the source of truth. Optionally link the purchase order this invoice bills against. Confirm and upload.
+
+Then run the agent. It investigates: it reads the document, searches the payment feed, scores the vendor name, and commits to a decision with its evidence.
+
+Every step is logged. This is the agent trajectory — the exact tool calls, inputs, outputs, and reasoning. These JSON files ship with the repo as the audit trail.
+
+Compliance works the same way. Purchase orders are checked against the rulebook — and every violation quotes the exact clause it conflicts with.
+
+When the agent is unsure, it doesn't guess. This ambiguous warranty clause was routed to the human review queue with the agent's reasoning attached. A human approves or rejects — the agent only recommends.
+
+And it's measured, not vibes. One command scores the strict baseline against the agent on the same labeled dataset: match accuracy, false-positive rate, partial-payment handling, compliance precision and recall. The numbers live in the database, not a screenshot.
+
+The changelog tells the story: from a strict rule baseline at seventy-five percent accuracy, through fuzzy matching, partial-payment detection, OCR with fallback, and ambiguity routing — including the experiments we removed and why.
+
+The main failure mode is OCR on bad scans — so extraction confidence flows into match confidence, and uncertainty routes to a human. Because the agent's most valuable output isn't the match. It's a reasoned "I'm not sure."
